@@ -14,11 +14,15 @@ An interactive Classroom Monitoring Web Application built using HTML, CSS, and J
 
 🔔 User Interaction – Dynamic UI built with JavaScript for better engagement
 
+☁️ Cloud Integration – Real-time database and hosting using Firebase
+
 # Tech Stack
 
 Frontend: HTML, CSS, JavaScript
 
 UI: Responsive layout with modern CSS styling
+
+Backend & Cloud: Firebase Authentication, Firestore Database, Firebase Hosting
 
 # Installation & Setup
 
