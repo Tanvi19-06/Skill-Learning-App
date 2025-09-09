@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Master - Attendance</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+        }
+        .attendance-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+        }
+        button {
+            background: #fff;
+            color: #185a9d;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #a6f1e0;
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Attendance</h1>
+    <div class="attendance-container">
+        <input type="date" id="attendanceDate">
+        <div>
+            <button onclick="markAttendance('Present')">Present</button>
+            <button onclick="markAttendance('Absent')">Absent</button>
+        </div>
+        <table id="attendanceTable">
+            <tr>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </table>
+        <button onclick="exportAttendance()">Export as CSV</button>
+    </div>
+    <script>
+        function markAttendance(status) {
+            const date = document.getElementById('attendanceDate').value;
+            if (!date) {
+                alert('Please select a date');
+                return;
+            }
+            const table = document.getElementById('attendanceTable');
+            const row = table.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            cell1.textContent = date;
+            cell2.textContent = status;
+        }
+        function exportAttendance() {
+            let csv = 'Date,Status\n';
+            const rows = document.querySelectorAll('#attendanceTable tr');
+            rows.forEach((row, index) => {
+                if (index > 0) {
+                    const cells = row.querySelectorAll('td');
+                    const date = cells[0].textContent;
+                    const status = cells[1].textContent;
+                    csv += `${date},${status}\n`;
+                }
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'attendance.csv';
+            link.click();
+        }
+    </script>
+</body>
+</html>
